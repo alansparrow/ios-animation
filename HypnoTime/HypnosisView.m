@@ -144,6 +144,7 @@
 {
     UITouch *t = [touches anyObject];
     CGPoint p = [t locationInView:self];
+    NSLog(@"%f %f", p.x, p.y);
     [boxLayer setPosition:p];
 }
 
@@ -151,6 +152,7 @@
 {
     UITouch *t = [touches anyObject];
     CGPoint p = [t locationInView:self];
+    NSLog(@"%f %f", p.x, p.y);
     
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
