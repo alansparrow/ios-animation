@@ -28,11 +28,12 @@
         [boxLayer setPosition:CGPointMake(160.0, 100.0)];
         
         // Make half-transparent red the background color for the layer
-        UIColor *reddish = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5];
+        UIColor *reddish = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1];
         
         // Get a CGColor object with the same color values
         CGColorRef cgReddish = [reddish CGColor];
         [boxLayer setBackgroundColor:cgReddish];
+        [boxLayer setOpacity:0.5];
         
         // Create a UIImage
         UIImage *layerImage = [UIImage imageNamed:@"Hypno.png"];
@@ -50,6 +51,12 @@
         // Let the image resize (without changing the aspect ratio)
         // to fill the contentRect
         [boxLayer setContentsGravity:kCAGravityResizeAspect];
+        
+        [boxLayer setCornerRadius:20];
+        [boxLayer setShadowColor:[[UIColor blueColor] CGColor]];
+        [boxLayer setShadowOffset:CGSizeMake(10, 10)];
+        [boxLayer setShadowOpacity:0.8];
+        
         
         // Make it a sublayer of the view's layer
         [[self layer] addSublayer:boxLayer];
