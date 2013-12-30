@@ -53,6 +53,8 @@
      */
     
     CAKeyframeAnimation *slide = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    [slide setDelegate:self];
+    
     [slide setValues:[NSArray arrayWithObjects:[NSValue valueWithCGPoint:startPos],
                      [NSValue valueWithCGPoint:endPos],
                      [NSValue valueWithCGPoint:originalPos], nil]];
@@ -171,6 +173,20 @@
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     NSLog(@"%@ finished: %d", anim, flag);
+    
+    CAKeyframeAnimation *fade =
+    [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+    NSNumber *forwardOpacity = [NSNumber numberWithFloat:1];
+    NSNumber *backOpacity = [NSNumber numberWithFloat:0];
+    NSNumber *forwardOpacity2 = [NSNumber numberWithFloat:1];
+    NSNumber *backOpacity2 = [NSNumber numberWithFloat:0];
+    [fade setValues:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0]
+                     ,forwardOpacity, backOpacity, forwardOpacity2, backOpacity2,
+                     [NSNumber numberWithFloat:1],nil]];
+    
+    [fade setDuration:3];
+    [fade setRepeatCount:HUGE_VALF];
+    [[askTimeBtn layer] addAnimation:fade forKey:@"fadeAnimation"];
 }
 
 
