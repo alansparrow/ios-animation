@@ -20,18 +20,24 @@
         
         // Create the new layer object
         boxLayer = [[CALayer alloc] init];
+        backgroundLayer = [[CALayer alloc] init];
         
         // Give it a size
-        [boxLayer setBounds:CGRectMake(0.0, 0.0, 105.0, 105.0)];
+        [boxLayer setBounds:CGRectMake(0.0, 0.0, 100.0, 100.0)];
+        [backgroundLayer setBounds:CGRectMake(0.0, 0.0, 100.0, 100.0)];
         
         // Give it a location
-        [boxLayer setPosition:CGPointMake(160.0, 100.0)];
+        [backgroundLayer setPosition:CGPointMake(160, 100)];
+        [boxLayer setPosition:CGPointMake(50.0, 50.0)];
         
         // Make half-transparent red the background color for the layer
         UIColor *reddish = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5];
+        UIColor *whitish = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1];
         
         // Get a CGColor object with the same color values
         CGColorRef cgReddish = [reddish CGColor];
+        CGColorRef cgWhitish = [whitish CGColor];
+        [backgroundLayer setBackgroundColor:cgWhitish];
         [boxLayer setBackgroundColor:cgReddish];
         
         // Create a UIImage
@@ -45,14 +51,35 @@
         
         // Insert the image a bit on each side
         // http://forums.bignerdranch.com/viewtopic.php?f=235&t=4300
-        [boxLayer setContentsRect:CGRectMake(-0.1, -0.1, 1.2, 1.2)];
+        //[boxLayer setContentsRect:CGRectMake(-0.5, -0.5, 1, 1)];
+        //[boxLayer setContentsRect:CGRectMake(0, 0, 1, 1)];
+        [boxLayer setContentsRect:CGRectMake(-0.5, -0.5, 2, 2)];
         
         // Let the image resize (without changing the aspect ratio)
         // to fill the contentRect
         [boxLayer setContentsGravity:kCAGravityResizeAspect];
         
+        [boxLayer setCornerRadius:20];
+        //[boxLayer setMasksToBounds:YES]; // this is used to cut the shadow of boxLayer
+        
+        [backgroundLayer setCornerRadius:20];
+        //[backgroundLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
+        [backgroundLayer setBackgroundColor:[[UIColor redColor] CGColor]];
+        [boxLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
+        [backgroundLayer setOpacity:0.5];
+        //[backgroundLayer setCornerRadius:20];
+        //[backgroundLayer setMasksToBounds:YES];
+        
+        [backgroundLayer setShadowColor:[[UIColor blueColor] CGColor]];
+        [backgroundLayer setShadowOffset:CGSizeMake(10, 10)];
+        [backgroundLayer setShadowOpacity:1];
+        [backgroundLayer setShadowRadius:3];
+        
+
+        
         // Make it a sublayer of the view's layer
-        [[self layer] addSublayer:boxLayer];
+        [backgroundLayer addSublayer:boxLayer];
+        [[self layer] addSublayer:backgroundLayer];
     }
     
     return self;
@@ -137,7 +164,7 @@
 {
     UITouch *t = [touches anyObject];
     CGPoint p = [t locationInView:self];
-    [boxLayer setPosition:p];
+    [backgroundLayer setPosition:p];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -148,7 +175,7 @@
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     
-    [boxLayer setPosition:p];
+    [backgroundLayer setPosition:p];
     
     [CATransaction commit];
 }
