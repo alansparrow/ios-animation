@@ -20,38 +20,51 @@
         
         // Create the new layer object
         boxLayer = [[CALayer alloc] init];
+        boxLayerSub = [[CALayer alloc] init];
         
         // Give it a size
-        [boxLayer setBounds:CGRectMake(0.0, 0.0, 105.0, 105.0)];
+        [boxLayer setBounds:CGRectMake(0.0, 0.0, 100.0, 100.0)];
+        [boxLayerSub setBounds:CGRectMake(0.0, 0.0, 50.0, 50.0)];
         
         // Give it a location
         [boxLayer setPosition:CGPointMake(160.0, 100.0)];
+        // Position according to boxLayer
+        [boxLayerSub setPosition:CGPointMake(50.0, 50.0)];
         
         // Make half-transparent red the background color for the layer
         UIColor *reddish = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5];
+        UIColor *blueish = [UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:0.5];
         
         // Get a CGColor object with the same color values
         CGColorRef cgReddish = [reddish CGColor];
         [boxLayer setBackgroundColor:cgReddish];
+        CGColorRef cgBlueish = [blueish CGColor];
+        [boxLayerSub setBackgroundColor:cgBlueish];
         
         // Create a UIImage
         UIImage *layerImage = [UIImage imageNamed:@"Hypno.png"];
+        UIImage *subLayerImage = [UIImage imageNamed:@"Time.png"];
         
         // Get the underlying CGImage
         CGImageRef image = [layerImage CGImage];
+        CGImageRef subImage = [subLayerImage CGImage];
         
         // Put the CGImage on the layer
         [boxLayer setContents:(__bridge id)image];
+        [boxLayerSub setContents:(__bridge id)subImage];
         
         // Insert the image a bit on each side
         // http://forums.bignerdranch.com/viewtopic.php?f=235&t=4300
         [boxLayer setContentsRect:CGRectMake(-0.1, -0.1, 1.2, 1.2)];
+        [boxLayerSub setContentsRect:CGRectMake(-0.1, -0.1, 1.2, 1.2)];
         
         // Let the image resize (without changing the aspect ratio)
         // to fill the contentRect
         [boxLayer setContentsGravity:kCAGravityResizeAspect];
+        [boxLayerSub setContentsGravity:kCAGravityResizeAspect];
         
         // Make it a sublayer of the view's layer
+        [boxLayer addSublayer:boxLayerSub];
         [[self layer] addSublayer:boxLayer];
     }
     

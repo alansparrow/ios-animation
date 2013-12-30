@@ -12,6 +12,7 @@
 @interface HypnosisView : UIView
 {
     CALayer *boxLayer;
+    CALayer *boxLayerSub;
 }
 
 @property (nonatomic, strong) UIColor *circleColor;
