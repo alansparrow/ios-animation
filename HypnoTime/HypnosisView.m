@@ -50,6 +50,7 @@
         // Let the image resize (without changing the aspect ratio)
         // to fill the contentRect
         [boxLayer setContentsGravity:kCAGravityResizeAspect];
+        [boxLayer setCornerRadius:20];
         
         // Make it a sublayer of the view's layer
         [[self layer] addSublayer:boxLayer];
