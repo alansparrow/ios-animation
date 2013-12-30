@@ -99,11 +99,24 @@
                        [NSValue valueWithCATransform3D:CATransform3DIdentity],
                       nil]];
     
+    // Create a key fram animation
+    CAKeyframeAnimation *fade =
+    [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+    NSNumber *forwardOpacity = [NSNumber numberWithFloat:1];
+    NSNumber *backOpacity = [NSNumber numberWithFloat:0];
+    NSNumber *forwardOpacity2 = [NSNumber numberWithFloat:1];
+    NSNumber *backOpacity2 = [NSNumber numberWithFloat:0];
+    [fade setValues:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0]
+                       ,forwardOpacity, backOpacity, forwardOpacity2, backOpacity2,
+                       [NSNumber numberWithFloat:1],nil]];
+    
     // Set the duration
-    [bounce setDuration:0.6];
+    [bounce setDuration:1];
+    [fade setDuration:1];
     
     // Animate the layer
     [[timeLabel layer] addAnimation:bounce forKey:@"bounceAnimation"];
+    [[timeLabel layer] addAnimation:fade forKey:@"fadeAnimation"];
 }
 
 - (void)spinTimeLabel
