@@ -11,6 +11,7 @@
 @interface TimeViewController : UIViewController
 {
     IBOutlet UILabel __weak *timeLabel;
+    __weak IBOutlet UIButton *askTimeBtn;
 }
 - (IBAction)showCurrentTime:(id)sender;
 

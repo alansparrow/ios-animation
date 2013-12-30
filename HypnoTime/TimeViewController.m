@@ -37,6 +37,17 @@
     NSLog(@"CurrentTimeViewController will appear");
     [super viewWillAppear:animated];
     [self showCurrentTime:nil];
+    
+
+    CGPoint originalPos = [askTimeBtn center];
+    CGPoint startPos = CGPointMake(-10, originalPos.y);
+    
+    CABasicAnimation *slide = [CABasicAnimation animationWithKeyPath:@"position"];
+    [slide setFromValue:[NSValue valueWithCGPoint:startPos]];
+    [slide setToValue:[NSValue valueWithCGPoint:originalPos]];
+    
+    [slide setDuration:0.5];
+    [[askTimeBtn layer] addAnimation:slide forKey:@"slideButtonAnimation"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
