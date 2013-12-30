@@ -41,12 +41,29 @@
 
     CGPoint originalPos = [askTimeBtn center];
     CGPoint startPos = CGPointMake(-10, originalPos.y);
+    CGPoint endPos = CGPointMake(originalPos.x + 40, originalPos.y);
     
+    /*
     CABasicAnimation *slide = [CABasicAnimation animationWithKeyPath:@"position"];
     [slide setFromValue:[NSValue valueWithCGPoint:startPos]];
     [slide setToValue:[NSValue valueWithCGPoint:originalPos]];
     
     [slide setDuration:0.5];
+    [[askTimeBtn layer] addAnimation:slide forKey:@"slideButtonAnimation"];
+     */
+    
+    CAKeyframeAnimation *slide = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    [slide setValues:[NSArray arrayWithObjects:[NSValue valueWithCGPoint:startPos],
+                     [NSValue valueWithCGPoint:endPos],
+                     [NSValue valueWithCGPoint:originalPos], nil]];
+    
+    CAMediaTimingFunction *tf = [CAMediaTimingFunction
+                                 functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [slide setTimingFunction:tf];
+    
+    [slide setDuration:0.8];
+    
+    
     [[askTimeBtn layer] addAnimation:slide forKey:@"slideButtonAnimation"];
 }
 
